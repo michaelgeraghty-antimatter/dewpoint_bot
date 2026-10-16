@@ -60,7 +60,7 @@ name it after the site, and leave *Allow write access* **unchecked**. Then clone
 
 ```bash
 sudo GIT_SSH_COMMAND="ssh -i /root/.ssh/dewpoint_deploy -o IdentitiesOnly=yes -o StrictHostKeyChecking=accept-new" \
-  git clone git@github.com:OWNER/REPO.git /usr/local/src/dewpoint-bot
+  git clone git@github.com:michaelgeraghty-antimatter/dewpoint_bot.git /usr/local/src/dewpoint-bot
 sudo git -C /usr/local/src/dewpoint-bot config core.sshCommand "ssh -i /root/.ssh/dewpoint_deploy -o IdentitiesOnly=yes"
 cd /usr/local/src/dewpoint-bot
 ```
