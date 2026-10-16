@@ -33,7 +33,7 @@ Example message:
 
 Create a single Slack app for all sites, then add a webhook for each channel:
 
-1. Go to https://api.slack.com/apps, then *Create New App* → *From scratch* (name it e.g. "Dewpoint Bot").
+1. Go to https://api.slack.com/apps, then *Create New App* → *Blank app* (name it e.g. "Dewpoint Bot").
 2. *Incoming Webhooks* → turn it on.
 3. Click *Add New Webhook to Workspace*, pick a channel, and copy the
    `https://hooks.slack.com/services/...` URL. Repeat for each channel. **Each webhook URL posts
