@@ -1,0 +1,4 @@
+# Runtime state and local config (webhook URLs are secrets)
+dewpoint_state.json
+*.env
+__pycache__/
