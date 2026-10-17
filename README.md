@@ -19,15 +19,17 @@ systemd timer (hourly) ──> dewpoint_bot.py
 
 When it alerts:
 - **Risk appears**: posts a warning listing each risk window, the closest hour, temp,
-  dewpoint, spread and RH. If the spread gets to ≤ 0.5 °F it also says "at dewpoint".
+  dewpoint and RH, and says whether the temperature is above, at, or how far below the dewpoint.
+  Any temperature below the dewpoint always triggers the warning, however far below.
 - **Risk persists**: stays quiet, then posts again every `REALERT_HOURS` (default 12).
 - **Risk clears**: posts an all-clear (turn this off with `SEND_ALL_CLEAR=0`).
 
 Example message:
 
 > 💧 **Dewpoint warning for Warehouse 3 — Miami, FL (33101)**
-> Forecast temperature comes within 5°F of the dewpoint in the next 24h:
-> • Fri 9PM–Sat 10AM GMT-4: closest Sat 7AM, temp 76°F / dewpoint 74°F (spread 1.8°F, RH 94%)
+> Forecast temperature is below, at, or within 5°F above the dewpoint in the next 24h:
+> • Fri 9PM–Sat 10AM GMT-4: worst Sat 7AM, temp 76°F / dewpoint 74°F — 1.8°F above dewpoint (RH 94%)
+> • Sat 11PM–Sun 6AM GMT-4: worst Sun 4AM, temp 58°F / dewpoint 61°F — **3.0°F below dewpoint — condensation likely** (RH 100%)
 
 ## Slack setup (once)
 

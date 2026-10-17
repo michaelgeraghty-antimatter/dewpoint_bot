@@ -92,18 +92,26 @@ def fmt_time(dt):
     return dt.strftime("%a %-I%p") if os.name != "nt" else dt.strftime("%a %#I%p")
 
 
+def describe_gap(spread):
+    """How temp relates to dewpoint, in words: above, at, or below."""
+    if spread < -0.5:
+        return f"*{-spread:.1f}°F below dewpoint — condensation likely*"
+    if spread <= 0.5:
+        return "*at dewpoint — condensation/fog likely*"
+    return f"{spread:.1f}°F above dewpoint"
+
+
 def build_alert(label, windows, spread_f, hours, tz):
     lines = [f":droplet: *Dewpoint warning for {label}*",
-             f"Forecast temperature comes within {spread_f:g}°F of the dewpoint "
+             f"Forecast temperature is below, at, or within {spread_f:g}°F above the dewpoint "
              f"in the next {hours}h:"]
     for w in windows:
         end = w["end"] + timedelta(hours=1)
         wr = w["worst"]
-        at_dew = " — *at dewpoint (condensation/fog likely)*" if wr["spread"] <= 0.5 else ""
         lines.append(
-            f"• {fmt_time(w['start'])}–{fmt_time(end)} {tz}: closest {fmt_time(wr['time'])}, "
-            f"temp {wr['temp']:.0f}°F / dewpoint {wr['dew']:.0f}°F "
-            f"(spread {wr['spread']:.1f}°F, RH {wr['rh']}%){at_dew}")
+            f"• {fmt_time(w['start'])}–{fmt_time(end)} {tz}: worst {fmt_time(wr['time'])}, "
+            f"temp {wr['temp']:.0f}°F / dewpoint {wr['dew']:.0f}°F — "
+            f"{describe_gap(wr['spread'])} (RH {wr['rh']}%)")
     return "\n".join(lines)
 
 
